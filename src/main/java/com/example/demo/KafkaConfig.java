@@ -12,9 +12,12 @@ import org.springframework.kafka.core.KafkaAdmin;
 
 @Configuration
 class KafkaConfig {
-	@Value(value="$kafka.server")
+	
+	//app.proreties deki localhost adresini bu stringe atamak icin value kullaniyoruz
+	@Value(value="${kafka.server}")
 	private String serverAddress;
-
+	
+	//serverAddress adresim bu olan bir admin olusturduk
 	@Bean
 	public KafkaAdmin kafkaAdmin() {
 		Map<String, Object> configs = new HashMap<>();
@@ -25,6 +28,7 @@ class KafkaConfig {
 	@Bean
 	public NewTopic topic() {
 		return new NewTopic("appTopic",1, (short) 1);
+		//String name, int numPartitions, short replicationFactor
 	}
 	
 }
